@@ -7,6 +7,7 @@
 # 
 
 import itertools
+import math
 
 
 def compute():
@@ -34,26 +35,16 @@ def compute():
 # Provides memoization for generating and testing pentagonal numbers.
 class PentagonalNumberHelper:
 	def __init__(self):
-		self.term_list = [0]
-		self.term_set = set()
+		pass
 	
-	def term(self, x):
+	def term(self, i):
+		assert i > 0
+		return (i * (3 * i - 1)) >> 1
+	
+	def is_term(self, x):
 		assert x > 0
-		while len(self.term_list) <= x:
-			n = len(self.term_list)
-			term = (n * (n * 3 - 1)) >> 1
-			self.term_list.append(term)
-			self.term_set.add(term)
-		return self.term_list[x]
-	
-	def is_term(self, y):
-		assert y > 0
-		while self.term_list[-1] < y:
-			n = len(self.term_list)
-			term = (n * (n * 3 - 1)) >> 1
-			self.term_list.append(term)
-			self.term_set.add(term)
-		return y in self.term_set
+		i = math.isqrt(2 * x / 3) + 1 
+		return x == self.term(x) 
 
 
 if __name__ == "__main__":
